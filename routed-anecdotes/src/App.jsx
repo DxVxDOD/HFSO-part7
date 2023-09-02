@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Menu from './components/Menu'
 import AnecdoteList from './components/AnecdoteList'
 import About from './components/About'
@@ -24,10 +24,6 @@ const App = () => {
       id: 2
     }
   ])
-
-  useEffect(() => {
-    setAnecdotes(anecdotes)
-  }, [anecdotes])
 
   const [notification, setNotification] = useState(null)
 

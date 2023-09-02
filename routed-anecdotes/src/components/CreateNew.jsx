@@ -2,9 +2,15 @@ import PropTypes from 'prop-types';
 import { useFrom } from "../hooks/useForm";
 
 const CreateNew = ({addNew}) => {
-    const content = useFrom('text')
-    const author = useFrom('text')
-    const info = useFrom('text')
+    const {reset: resetContent, ...content} = useFrom('text')
+    const {reset: resetAuthor, ...author} = useFrom('text')
+    const {reset: resetInfo, ...info} = useFrom('text')
+
+    const handleReset = () => {
+        resetAuthor()
+        resetContent()
+        resetInfo()
+    }
 
     const handleSubmit = (e) => {
       e.preventDefault()
@@ -33,6 +39,7 @@ const CreateNew = ({addNew}) => {
             <input {...info} />
           </div>
           <button>create</button>
+          <button type='button' onClick={handleReset} >reset</button>
         </form>
       </div>
     )

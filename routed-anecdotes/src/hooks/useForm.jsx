@@ -1,11 +1,13 @@
 import { useState } from "react"
 
 export const useFrom = (type) => {
-    const [value, setValue] = useState('')
+    const [value, setvalue] = useState('')
 
     const onChange = (e) => {
-        setValue(e.target.value)
+        setvalue(e.target.value)
     }
 
-    return {value, onChange, type}
+    const reset = () => setvalue('')
+
+    return {value, onChange, type, reset}
 }

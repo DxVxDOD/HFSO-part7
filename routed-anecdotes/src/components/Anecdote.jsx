@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import PropTypes, { number, string } from 'prop-types';
 
-const Anecdote = ({ anecdotes }) => {
+const Anecdote = ({ anecdotes, notification }) => {
 
     const id = useParams().id
     const anecdote = anecdotes.find(a => a.id === Number(id))
@@ -11,6 +11,7 @@ const Anecdote = ({ anecdotes }) => {
     <h2>{anecdote.content}</h2>
     <p>Author: {anecdote.author}</p>
     <p>Url: {anecdote.info}</p>
+    {notification}
     </>
   )
 }
@@ -26,5 +27,6 @@ Anecdote.propTypes = {
             votes: number,
             id: number
         })
-    )
+    ),
+    notification: string
 }

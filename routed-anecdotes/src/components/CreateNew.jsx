@@ -1,11 +1,10 @@
 import { useState } from "react"
 import PropTypes from 'prop-types';
 
-const CreateNew = ({ addNew }) => {
+const CreateNew = ({addNew}) => {
     const [content, setContent] = useState('')
     const [author, setAuthor] = useState('')
     const [info, setInfo] = useState('')
-  
   
     const handleSubmit = (e) => {
       e.preventDefault()
@@ -43,5 +42,5 @@ const CreateNew = ({ addNew }) => {
 export default CreateNew
 
 CreateNew.propTypes = {
-    addNew: PropTypes.func
+    addNew: PropTypes.func,
 }

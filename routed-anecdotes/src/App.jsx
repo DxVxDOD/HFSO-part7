@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Menu from './components/Menu'
 import AnecdoteList from './components/AnecdoteList'
 import About from './components/About'
 import Footer from './components/Footer'
 import CreateNew from './components/CreateNew'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Anecdote from './components/Anecdote'
 
 const App = () => {
@@ -25,15 +25,22 @@ const App = () => {
     }
   ])
 
-  // const [notification, setNotification] = useState('')
+  useEffect(() => {
+    setAnecdotes(anecdotes)
+  }, [anecdotes])
+
+  const [notification, setNotification] = useState(null)
+
+  const navigate = useNavigate()
+
+  // const anecdoteById = (id) => anecdotes.find(a => a.id === id)
 
   const addNew = (anecdote) => {
-    anecdote.id = Math.round(Math.random() * 10000)
-    setAnecdotes(anecdotes.concat(anecdote))
-  }
-
-  // const anecdoteById = (id) =>
-  //   anecdotes.find(a => a.id === id)
+      anecdote.id = Math.round(Math.random() * 10000)
+      setAnecdotes(anecdotes.concat(anecdote));
+      setNotification(`New anecdote: ${anecdote.content}`);
+      navigate(`/anecdotes/${anecdote.id}`)
+    }
 
   // const vote = (id) => {
   //   const anecdote = anecdoteById(id)
@@ -46,19 +53,19 @@ const App = () => {
   //   setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   // }
   return (
-    <Router>
+    <>
       <>
         <h1>Software anecdotes</h1>
         <Menu />
       </>
       <Routes>
-        <Route path='/anecdotes/:id' element={<Anecdote anecdotes={anecdotes} />} />
+        <Route path='/anecdotes/:id' element={<Anecdote anecdotes={anecdotes} notification={notification} />} />
         <Route path='/anecdotes' element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/about' element={<About/>} />
         <Route path='/create-new' element={<CreateNew addNew={addNew} />} />
       </Routes>
       <Footer />
-    </Router>
+    </>
   )
 }
 

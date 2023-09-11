@@ -1,11 +1,26 @@
-import { useField } from "./hooks/useField"
-import { useResource } from "./hooks/useResource"
+import { useState } from 'react'
+import { useResource } from '../useResource'
+
+const useField = (type) => {
+  const [value, setValue] = useState('')
+
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+
+  return {
+    type,
+    value,
+    onChange
+  }
+}
 
 
 const App = () => {
   const content = useField('text')
   const name = useField('text')
   const number = useField('text')
+
 
   const [notes, noteService] = useResource('http://localhost:3005/notes')
   const [persons, personService] = useResource('http://localhost:3005/persons')
